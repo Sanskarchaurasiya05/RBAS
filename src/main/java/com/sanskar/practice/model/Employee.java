@@ -1,9 +1,7 @@
 package com.sanskar.practice.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 @Entity
@@ -11,16 +9,20 @@ import org.springframework.validation.annotation.Validated;
 @Setter
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String name;
 
     private String email;
 
     private String password;
+
+    private String role;
 
     private double salary;
 
