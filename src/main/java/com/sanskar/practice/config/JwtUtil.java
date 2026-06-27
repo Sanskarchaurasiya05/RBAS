@@ -18,4 +18,25 @@ private final String key = "mySuperSecretKeyForJwtThatIsLongEnoughhellosanskar";
                 .signWith(SignatureAlgorithm.HS256,key)
                 .compact();
     }
+
+    public String extractUsername(String token) {
+        return Jwts.parser()
+                .setSigningKey(key)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean validateToken(String token, String username) {
+        return extractUsername(token).equals(username) && !isExpired(token);
+    }
+    private boolean isExpired(String token) {
+        Date expiration = Jwts.parser()
+                .setSigningKey(key)
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+
+        return expiration.before(new Date());
+    }
 }
